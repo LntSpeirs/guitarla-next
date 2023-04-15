@@ -10,9 +10,7 @@ const Header = () => {
         <header className={styles.header}>
             {/* El classname contenedor centra el contenido */}
             <div className={`contentedor ${styles.barra}`}>
-                <Link
-                    href="/"
-                >
+                <Link href="/">
                     <Image
                         src="/img/logo.svg"
                         width={300}
