@@ -1,14 +1,11 @@
-import Layout from "../components/layout.js";
+import Layout from '../components/layout.js';
 
 const Blog = () => {
   return (
-    <Layout
-            title={"Blog"}
-            description={"Blog"}
-        >
-            <h1>HOLA DESDE Blog</h1>
-        </Layout>
-  )
-}
+    <Layout title={'Blog'} description={'Blog'}>
+      <h1>HOLA DESDE Blog</h1>
+    </Layout>
+  );
+};
 
-export default Blog
+export default Blog;
