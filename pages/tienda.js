@@ -1,5 +1,6 @@
 import Layout from '../components/layout.js';
 import Guitarra from '../components/guitarra.js';
+import styles from '../styles/grid.module.css';
 
 const Tienda = ({ guitarras }) => {
   //console.log(guitarras);
@@ -7,9 +8,11 @@ const Tienda = ({ guitarras }) => {
     <Layout title={'Tienda virtual'} description={'Tienda de guitarras.'}>
       <main className="contenedor">
         <h1 className="heading">Nuestra colección</h1>
-        {guitarras?.map(guitarra => {
-          return <Guitarra key={guitarra.id} guitarra={guitarra.attributes} />;
-        })}
+        <div className={styles.grid}>
+          {guitarras?.map(guitarra => {
+            return <Guitarra key={guitarra.id} guitarra={guitarra.attributes} />;
+          })}
+        </div>
       </main>
     </Layout>
   );
