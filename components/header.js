@@ -26,6 +26,9 @@ const Header = () => {
           <Link href="/blog" className={router.pathname === '/blog' ? styles.active : ''}>
 						Blog
           </Link>
+          <Link href="/carrito">
+            <Image width={30} height={25} src="/img/carrito.png" alt="Imagen carrito" />
+          </Link>
         </nav>
       </div>
     </header>

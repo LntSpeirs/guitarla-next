@@ -1,14 +1,34 @@
 import Image from 'next/image';
 import styles from '../../styles/guitarras.module.css';
 import Layout from '../../components/layout';
+import { useState } from 'react';
 
 //import { useRouter } from 'next/router';
 function Producto({ guitarra }) {
-  //const router = useRouter();
-  //console.log(router);
-
-  //console.log( guitarra.data[0].attributes );
+  const [cantidad, setCantidad] = useState(0);
   const { nombre, descripcion, imagen, precio } = guitarra.data[0].attributes;
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (cantidad < 1) {
+      alert('Cantidad no valida');
+      return;
+    }
+
+
+    //Construir un con la guitarra seleccionada y la cantidad
+    const guitarraSeleccionada = {
+      id: guitarra.data[0].id,
+      imagen: imagen.data.attributes.url,
+      nombre,
+      precio,
+      cantidad,
+    };
+
+    //Pasando la informacion
+  };
+
   return (
     <Layout title={`Guitarra ${nombre}`}>
       <div className={styles.guitarra}>
@@ -17,6 +37,25 @@ function Producto({ guitarra }) {
           <h3>{nombre}</h3>
           <p className={styles.descripcion}>{descripcion}</p>
           <p className={styles.precio}>{precio}€</p>
+
+          <form className={styles.formulario} onSubmit={handleSubmit}>
+            <label htmlFor="cantidad">Cantidad:</label>
+            <select
+              id="cantidad"
+              onChange={e => {
+                /* el + es para pasarlo a number ya que del formulario llega string */
+                setCantidad(+e.target.value);
+              }}
+            >
+              <option value="0">-- Seleccione --</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <button type="submit">Agregar al carrito</button>
+          </form>
         </div>
       </div>
     </Layout>
