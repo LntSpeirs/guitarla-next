@@ -4,7 +4,7 @@ import Layout from '../../components/layout';
 import { useState } from 'react';
 
 //import { useRouter } from 'next/router';
-function Producto({ guitarra }) {
+function Producto({ guitarra, agregarCarrito }) {
   const [cantidad, setCantidad] = useState(0);
   const { nombre, descripcion, imagen, precio } = guitarra.data[0].attributes;
 
@@ -17,7 +17,7 @@ function Producto({ guitarra }) {
     }
 
 
-    //Construir un con la guitarra seleccionada y la cantidad
+    //Construir un con la guitarra seleccionada y la cantidad, para guardarlo en localstorage y no estar haciendo tantas llamadas a la api
     const guitarraSeleccionada = {
       id: guitarra.data[0].id,
       imagen: imagen.data.attributes.url,
@@ -27,6 +27,7 @@ function Producto({ guitarra }) {
     };
 
     //Pasando la informacion
+    agregarCarrito(guitarraSeleccionada);
   };
 
   return (
