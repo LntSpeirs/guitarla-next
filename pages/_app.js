@@ -1,8 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
-  const [carrito, setCarrito] = useState([]);
+  //Para que se ejecute solo en el lado del cliente y no en el servidor, detectamos que exista window
+  //el ?? es para la primera vez, cuando no existe en localstorage
+  const carritoLS = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('carrito')) ?? [] : [];
+  const [carrito, setCarrito] = useState([carritoLS]);
+
+  useEffect(() => {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+  }, [carrito]);
 
   const agregarCarrito = guitarra => {
     // Comprobar si la guitarra ya esta en el carrito...

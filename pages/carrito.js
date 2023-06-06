@@ -1,8 +1,16 @@
 import Image from 'next/image';
 import Layout from '../components/layout';
 import styles from '../styles/carrito.module.css';
+import { useEffect, useState } from 'react';
 
-const Carrito = ({ carrito, actualizarCantidad }) => {
+const Carrito = ({ carrito, actualizarCantidad, eliminarProducto }) => {
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    const calculoTotal = carrito.reduce((total, producto) => total + producto.cantidad * producto.precio, 0);
+    setTotal(calculoTotal);
+  }, [carrito]);
+
   return (
     <Layout title="carrito de compras">
       <main className="contenedor">
@@ -40,12 +48,15 @@ const Carrito = ({ carrito, actualizarCantidad }) => {
                       <span>Subtotal: {producto.precio * producto.cantidad}€</span>
                     </p>
                   </div>
+                  <button className={styles.eliminar} type="buttton" onClick={() => eliminarProducto(producto.id)}>
+											❌
+                  </button>
                 </div>
 							  ))}
           </div>
           <aside className={styles.resumen}>
             <h3>Resumen del pedido</h3>
-            <p>Total a pagar:</p>
+            <p>Total a pagar: {total}€</p>
           </aside>
         </div>
       </main>
