@@ -5,7 +5,14 @@ function MyApp({ Component, pageProps }) {
   //Para que se ejecute solo en el lado del cliente y no en el servidor, detectamos que exista window
   //el ?? es para la primera vez, cuando no existe en localstorage
   const carritoLS = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('carrito')) ?? [] : [];
-  const [carrito, setCarrito] = useState([carritoLS]);
+  const [carrito, setCarrito] = useState(carritoLS);
+
+  //solucion  de problema de hidratacion
+  const [paginaLista, setPaginaLista] = useState(false);
+
+  useEffect(() => {
+    setPaginaLista(true);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('carrito', JSON.stringify(carrito));
@@ -49,7 +56,7 @@ function MyApp({ Component, pageProps }) {
   };
 
   //Lo que pasas aqui esta disponible en todas las demas paginas de la aplicacion
-  return (
+  return paginaLista ? (
     <Component
       {...pageProps}
       agregarCarrito={agregarCarrito}
@@ -57,7 +64,7 @@ function MyApp({ Component, pageProps }) {
       eliminarProducto={eliminarProducto}
       actualizarCantidad={actualizarCantidad}
     />
-  );
+  ) : null;
 }
 
 export default MyApp;
